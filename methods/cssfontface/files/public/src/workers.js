@@ -9,7 +9,22 @@ class RPCWorker {
     this.name = name;
     this.transfer = [];
     this.promises = new Map();
+    try {
+
+    logger.info("Creating Worker...");
+
     this.worker = new Worker("src/worker.js");
+
+    logger.info("Worker created.");
+
+} catch(e) {
+
+    logger.error("Worker creation failed!");
+
+    logger.error(String(e));
+
+    throw e;
+}
     
     this.worker.onerror = (e) => {
     logger.error("=== WORKER ERROR ===");
