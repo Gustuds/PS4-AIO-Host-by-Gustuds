@@ -1,5 +1,7 @@
 importScripts("misc.js");
 
+logger.info("worker.js loaded");
+
 let marker_arr = new Uint32Array(new ArrayBuffer(0x10));
 
 const transfer = [];
