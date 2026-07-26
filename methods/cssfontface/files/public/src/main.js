@@ -11,10 +11,6 @@ function load_script(src, remote = true, transfer = []) {
 async function doJb() {
   await load_script("src/misc.js");
 
-  console.log("typeof logger =", typeof logger);
-  console.log("typeof version =", typeof version);
-  console.log("typeof BInt =", typeof BInt);
-
   try {
     version.init();
     switch (version.console) {
@@ -79,6 +75,7 @@ async function doJb() {
 
         // Remove rthdr pointers
         remove_rthdr_from_so(pktopts_twins[1]);
+        remove_rthdr_from_so(rthdr_twins[0]);
 
         logger.info("Corrupted context cleanup completed !!");
       } else {
