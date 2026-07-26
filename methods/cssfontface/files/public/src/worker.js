@@ -7,6 +7,9 @@ let marker_arr = new Uint32Array(new ArrayBuffer(0x10));
 const transfer = [];
 const api = {
   init(name) {
+
+    logger.info("worker.init() entered");
+    
     self.name = name;
 
     version.init();
