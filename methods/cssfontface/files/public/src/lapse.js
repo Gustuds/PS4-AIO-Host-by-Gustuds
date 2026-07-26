@@ -381,6 +381,10 @@ function cleanup() {
   logger.info("Environment cleanup started...");
 
   for (const sock of block_ss) {
+
+     logger.info("fn.close = " + fn.close);
+    logger.info("sock = " + sock);
+    
     if (sock === 0) {
       continue;
     }
