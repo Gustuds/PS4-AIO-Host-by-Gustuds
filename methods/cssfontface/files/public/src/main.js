@@ -112,13 +112,13 @@ async function doJb() {
     if (fn.setuid.invoke(0) === -1) {
       jailbreak();
 
-      const kpatches_rsp = await fetch(`methods/cssfontface/files/public/src/ps4/patches/${constants.KPATCH}`);
+      const kpatches_rsp = await fetch(`/methods/cssfontface/files/public/src/ps4/patches/${constants.KPATCH}`);
       const kpatches_buf = await kpatches_rsp.arrayBuffer();
       const kpatches_u8 = new Uint8Array(kpatches_buf);
 
       kernel_patches(kpatches_u8);
 
-      const bin_rsp = await fetch("methods/cssfontface/files/public/src/payload.bin");
+      const bin_rsp = await fetch("/methods/cssfontface/files/public/src/payload.bin");
       const bin_buf = await bin_rsp.arrayBuffer();
       const bin_u8 = new Uint8Array(bin_buf);
 
