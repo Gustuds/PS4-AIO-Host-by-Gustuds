@@ -91,20 +91,35 @@ window.CSSFontFaceAdapter = (function () {
             return;
         }
 
-        if (!document.getElementById("console")) {
-
-            const p = document.createElement("pre");
-
-            p.id = "console";
-
-            p.style.display = "none";
-
-            document.body.appendChild(p);
-        }
-
         Logger.info("Starting CSSFontFace...");
 
         try {
+
+            let consoleBox = document.getElementById("console");
+
+if (!consoleBox) {
+    consoleBox = document.createElement("pre");
+    consoleBox.id = "console";
+
+    Object.assign(consoleBox.style, {
+        position: "fixed",
+        left: "0",
+        top: "0",
+        width: "100%",
+        height: "100%",
+        background: "#000",
+        color: "#00ff00",
+        padding: "10px",
+        margin: "0",
+        overflow: "auto",
+        whiteSpace: "pre-wrap",
+        fontFamily: "monospace",
+        fontSize: "18px",
+        zIndex: "999999"
+    });
+
+    document.body.appendChild(consoleBox);
+}
 
             await doJb();
 
