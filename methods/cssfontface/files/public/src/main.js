@@ -110,20 +110,43 @@ async function doJb() {
 
     // Avoid reapplying if already done
     if (fn.setuid.invoke(0) === -1) {
-      jailbreak();
 
-      const kpatches_rsp = await fetch(`/methods/cssfontface/files/public/src/ps4/patches/${constants.KPATCH}`);
-      const kpatches_buf = await kpatches_rsp.arrayBuffer();
-      const kpatches_u8 = new Uint8Array(kpatches_buf);
+    logger.info(">>> BEFORE JAILBREAK");
 
-      kernel_patches(kpatches_u8);
+    jailbreak();
 
-      const bin_rsp = await fetch("/methods/cssfontface/files/public/src/payload.bin");
-      const bin_buf = await bin_rsp.arrayBuffer();
-      const bin_u8 = new Uint8Array(bin_buf);
+    logger.info(">>> AFTER JAILBREAK");
 
-      load_bin(bin_u8);
-    }
+    logger.info(">>> LOADING KPATCH");
+
+    const kpatches_rsp = await fetch(`/methods/cssfontface/files/public/src/ps4/patches/${constants.KPATCH}`);
+
+    logger.info(">>> KPATCH FETCH STATUS: " + kpatches_rsp.status);
+
+    const kpatches_buf = await kpatches_rsp.arrayBuffer();
+    const kpatches_u8 = new Uint8Array(kpatches_buf);
+
+    logger.info(">>> BEFORE KERNEL_PATCHES");
+
+    kernel_patches(kpatches_u8);
+
+    logger.info(">>> AFTER KERNEL_PATCHES");
+
+    logger.info(">>> LOADING PAYLOAD");
+
+    const bin_rsp = await fetch("/methods/cssfontface/files/public/src/payload.bin");
+
+    logger.info(">>> PAYLOAD STATUS: " + bin_rsp.status);
+
+    const bin_buf = await bin_rsp.arrayBuffer();
+    const bin_u8 = new Uint8Array(bin_buf);
+
+    logger.info(">>> BEFORE LOAD_BIN");
+
+    load_bin(bin_u8);
+
+    logger.info(">>> AFTER LOAD_BIN");
+}
 
     logger.info("===END===");
   } catch (e) {
@@ -131,4 +154,5 @@ async function doJb() {
     logger.error(e.stack);
     //mem.free_all();
   }
+}
 }
