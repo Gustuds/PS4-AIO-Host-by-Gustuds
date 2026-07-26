@@ -1,5 +1,3 @@
-console.log("misc.js loaded");
-
 //#region Constants
 const logger = {
   seq: 0,
@@ -16,85 +14,23 @@ const logger = {
     }
   },
   log(msg) {
-
     if (is_worker()) {
-        self.postMessage({
-            type: "log",
-            value: `[${self.name}] ${msg}`
-        });
-        return;
-    }
-
-    let consoleBox = document.getElementById("console");
-
-    if (!consoleBox) {
-
-        consoleBox = document.createElement("pre");
-        consoleBox.id = "console";
-
-        Object.assign(consoleBox.style, {
-            position: "fixed",
-            left: "0",
-            top: "0",
-            width: "100%",
-            height: "100%",
-            margin: "0",
-            padding: "10px",
-            background: "#000",
-            color: "#00ff00",
-            overflow: "auto",
-            whiteSpace: "pre-wrap",
-            fontFamily: "monospace",
-            fontSize: "18px",
-            zIndex: "999999"
-        });
-
-        document.body.appendChild(consoleBox);
-    }
-
-    consoleBox.textContent += msg + "\n";
-    consoleBox.scrollTop = consoleBox.scrollHeight;
-
-    console.log(msg);
-}
-};
-
-const version = {
-
-    if (!this.console) {
+      self.postMessage({ type: "log", value: `[${self.name}]${msg}` });
+    } else {
+      if (this.console === undefined) {
         this.console = document.getElementById("console");
+      }
 
-        if (!this.console) {
-            this.console = document.createElement("pre");
-            this.console.id = "console";
+      this.console.append(`${msg}\n`);
+      this.console.scrollTop = this.console.scrollHeight;
 
-            this.console.style.position = "fixed";
-            this.console.style.left = "0";
-            this.console.style.top = "0";
-            this.console.style.width = "100%";
-            this.console.style.height = "100%";
-
-            this.console.style.margin = "0";
-            this.console.style.padding = "10px";
-
-            this.console.style.background = "black";
-            this.console.style.color = "#00ff00";
-
-            this.console.style.fontSize = "14px";
-            this.console.style.fontFamily = "monospace";
-            this.console.style.whiteSpace = "pre-wrap";
-            this.console.style.overflow = "auto";
-            this.console.style.zIndex = "999999";
-
-            document.body.appendChild(this.console);
-        }
+      const data = JSON.stringify({
+        seq: this.seq++,
+        msg: msg,
+      });
     }
-
-    this.console.textContent += msg + "\n";
-    this.console.scrollTop = this.console.scrollHeight;
-
-    console.log(msg);
-}
+  },
+};
 const version = {
   console: undefined,
   major: undefined,
