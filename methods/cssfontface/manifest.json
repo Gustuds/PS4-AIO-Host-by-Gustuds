@@ -1,0 +1,25 @@
+{
+    "id": "cssfontface",
+    "name": "CSSFontFace",
+    "version": "1.0.0",
+    "description": "CSSFontFace Browser Exploit",
+    "type": "browser",
+    "supported": [
+        "9.03",
+        "9.04",
+        "9.50",
+        "9.51",
+        "9.60",
+        "10.00",
+        "10.01",
+        "10.50",
+        "10.70",
+        "10.71",
+        "11.00",
+        "11.02"
+    ],
+    "priority": 100,
+    "loader": "launcher.js",
+    "offline": true,
+    "stable": true
+}
