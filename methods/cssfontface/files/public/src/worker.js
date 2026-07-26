@@ -1,4 +1,16 @@
+self.postMessage({
+    type:"log",
+    value:"[worker] file loaded"
+});
+
 importScripts("misc.js");
+
+self.postMessage({
+    type:"log",
+    value:"[worker] misc loaded"
+});
+
+let marker_arr = ...
 
 logger.info("worker.js loaded");
 
