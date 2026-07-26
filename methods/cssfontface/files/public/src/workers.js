@@ -10,6 +10,13 @@ class RPCWorker {
     this.transfer = [];
     this.promises = new Map();
     this.worker = new Worker("src/worker.js");
+    
+    this.worker.onerror = (e) => {
+    logger.error("=== WORKER ERROR ===");
+    logger.error("message: " + e.message);
+    logger.error("file: " + e.filename);
+    logger.error("line: " + e.lineno);
+};
 
     this.worker.onmessage = (e) => {
       const { id, type, value } = e.data || {};
