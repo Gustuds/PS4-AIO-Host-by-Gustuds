@@ -10,10 +10,6 @@ self.postMessage({
     value:"[worker] misc loaded"
 });
 
-let marker_arr = ...
-
-logger.info("worker.js loaded");
-
 let marker_arr = new Uint32Array(new ArrayBuffer(0x10));
 
 const transfer = [];
