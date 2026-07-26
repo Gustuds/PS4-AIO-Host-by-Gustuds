@@ -1,4 +1,4 @@
-ction load_script(src, remote = true, transfer = []) {
+function load_script(src, remote = true, transfer = []) {
   return new Promise((resolve, reject) => {
     const script = document.createElement("script");
     script.src = src;
@@ -9,7 +9,7 @@ ction load_script(src, remote = true, transfer = []) {
 }
 
 async function doJb() {
-  await load_script("methods/cssfontface/files/public/src/worker.js");
+  await load_script("methods/cssfontface/files/public/src/misc.js");
 
   console.log("typeof logger =", typeof logger);
   console.log("typeof version =", typeof version);
@@ -131,3 +131,4 @@ async function doJb() {
     logger.error(e.stack);
     //mem.free_all();
   }
+}
