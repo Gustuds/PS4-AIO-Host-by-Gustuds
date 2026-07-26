@@ -17,22 +17,47 @@ const logger = {
   },
   log(msg) {
     if (is_worker()) {
-      self.postMessage({ type: "log", value: `[${self.name}]${msg}` });
-    } else {
-      if (this.console === undefined) {
-        this.console = document.getElementById("console");
-      }
-
-      this.console.append(`${msg}\n`);
-      this.console.scrollTop = this.console.scrollHeight;
-
-      const data = JSON.stringify({
-        seq: this.seq++,
-        msg: msg,
-      });
+        self.postMessage({
+            type: "log",
+            value: `[${self.name}] ${msg}`
+        });
+        return;
     }
-  },
-};
+
+    if (!this.console) {
+        this.console = document.getElementById("console");
+
+        if (!this.console) {
+            this.console = document.createElement("pre");
+            this.console.id = "console";
+
+            this.console.style.position = "fixed";
+            this.console.style.left = "0";
+            this.console.style.top = "0";
+            this.console.style.width = "100%";
+            this.console.style.height = "100%";
+
+            this.console.style.margin = "0";
+            this.console.style.padding = "10px";
+
+            this.console.style.background = "black";
+            this.console.style.color = "#00ff00";
+
+            this.console.style.fontSize = "14px";
+            this.console.style.fontFamily = "monospace";
+            this.console.style.whiteSpace = "pre-wrap";
+            this.console.style.overflow = "auto";
+            this.console.style.zIndex = "999999";
+
+            document.body.appendChild(this.console);
+        }
+    }
+
+    this.console.textContent += msg + "\n";
+    this.console.scrollTop = this.console.scrollHeight;
+
+    console.log(msg);
+}
 const version = {
   console: undefined,
   major: undefined,
@@ -471,3 +496,4 @@ function is_worker() {
   return typeof WorkerGlobalScope !== "undefined" && self instanceof WorkerGlobalScope;
 }
 //#endregion
+
