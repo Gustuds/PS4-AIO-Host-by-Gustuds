@@ -16,6 +16,7 @@ const logger = {
     }
   },
   log(msg) {
+
     if (is_worker()) {
         self.postMessage({
             type: "log",
@@ -23,6 +24,42 @@ const logger = {
         });
         return;
     }
+
+    let consoleBox = document.getElementById("console");
+
+    if (!consoleBox) {
+
+        consoleBox = document.createElement("pre");
+        consoleBox.id = "console";
+
+        Object.assign(consoleBox.style, {
+            position: "fixed",
+            left: "0",
+            top: "0",
+            width: "100%",
+            height: "100%",
+            margin: "0",
+            padding: "10px",
+            background: "#000",
+            color: "#00ff00",
+            overflow: "auto",
+            whiteSpace: "pre-wrap",
+            fontFamily: "monospace",
+            fontSize: "18px",
+            zIndex: "999999"
+        });
+
+        document.body.appendChild(consoleBox);
+    }
+
+    consoleBox.textContent += msg + "\n";
+    consoleBox.scrollTop = consoleBox.scrollHeight;
+
+    console.log(msg);
+}
+};
+
+const version = {
 
     if (!this.console) {
         this.console = document.getElementById("console");
@@ -496,4 +533,3 @@ function is_worker() {
   return typeof WorkerGlobalScope !== "undefined" && self instanceof WorkerGlobalScope;
 }
 //#endregion
-
