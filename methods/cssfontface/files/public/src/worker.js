@@ -1,14 +1,6 @@
-self.postMessage({
-    type:"log",
-    value:"[worker] file loaded"
-});
-
 importScripts("misc.js");
 
-self.postMessage({
-    type:"log",
-    value:"[worker] misc loaded"
-});
+logger.info("worker started");
 
 let marker_arr = new Uint32Array(new ArrayBuffer(0x10));
 
