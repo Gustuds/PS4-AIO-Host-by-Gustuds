@@ -11,6 +11,10 @@ function load_script(src, remote = true, transfer = []) {
 async function doJb() {
   await load_script("src/misc.js");
 
+  console.log("typeof logger =", typeof logger);
+  console.log("typeof version =", typeof version);
+  console.log("typeof BInt =", typeof BInt);
+
   try {
     version.init();
     switch (version.console) {
@@ -75,7 +79,6 @@ async function doJb() {
 
         // Remove rthdr pointers
         remove_rthdr_from_so(pktopts_twins[1]);
-        remove_rthdr_from_so(rthdr_twins[0]);
 
         logger.info("Corrupted context cleanup completed !!");
       } else {
@@ -109,13 +112,13 @@ async function doJb() {
     if (fn.setuid.invoke(0) === -1) {
       jailbreak();
 
-      const kpatches_rsp = await fetch(`src/ps4/patches/${constants.KPATCH}`);
+      const kpatches_rsp = await fetch(`methods/cssfontface/files/public/src/ps4/patches/${constants.KPATCH}`);
       const kpatches_buf = await kpatches_rsp.arrayBuffer();
       const kpatches_u8 = new Uint8Array(kpatches_buf);
 
       kernel_patches(kpatches_u8);
 
-      const bin_rsp = await fetch("src/payload.bin");
+      const bin_rsp = await fetch("methods/cssfontface/files/public/src/payload.bin");
       const bin_buf = await bin_rsp.arrayBuffer();
       const bin_u8 = new Uint8Array(bin_buf);
 
