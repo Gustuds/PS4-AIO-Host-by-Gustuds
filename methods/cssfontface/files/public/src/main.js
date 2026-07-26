@@ -1,4 +1,4 @@
-function load_script(src, remote = true, transfer = []) {
+ction load_script(src, remote = true, transfer = []) {
   return new Promise((resolve, reject) => {
     const script = document.createElement("script");
     script.src = src;
@@ -9,7 +9,7 @@ function load_script(src, remote = true, transfer = []) {
 }
 
 async function doJb() {
-  await load_script("src/misc.js");
+  await load_script("methods/cssfontface/files/public/src/worker.js");
 
   console.log("typeof logger =", typeof logger);
   console.log("typeof version =", typeof version);
@@ -19,8 +19,8 @@ async function doJb() {
     version.init();
     switch (version.console) {
       case 4:
-        await load_script("src/ps4/constants.js");
-        await load_script("src/ps4/userland.js");
+        await load_script("methods/cssfontface/files/public/src/ps4/constants.js");
+        await load_script("methods/cssfontface/files/public/src/ps4/userland.js");
         break;
       case 5:
         //TODO
@@ -42,12 +42,12 @@ async function doJb() {
 
     logger.info("===END===");
 
-    await load_script("src/loader.js");
-    await load_script("src/workers.js");
+    await load_script("methods/cssfontface/files/public/src/loader.js");
+    await load_script("methods/cssfontface/files/public/src/workers.js");
 
     switch (version.console) {
       case 4:
-        await load_script("src/ps4/kernel.js");
+        await load_script("methods/cssfontface/files/public/src/ps4/kernel.js");
         break;
       case 5:
         //TODO
@@ -131,4 +131,3 @@ async function doJb() {
     logger.error(e.stack);
     //mem.free_all();
   }
-}
