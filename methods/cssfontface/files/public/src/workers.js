@@ -13,7 +13,7 @@ class RPCWorker {
 
     logger.info("Creating Worker...");
 
-    this.worker = new Worker("src/worker.js");
+    this.worker = new Worker("methods/cssfontface/files/public/src/worker.js");
 
     logger.info("Worker created.");
 
