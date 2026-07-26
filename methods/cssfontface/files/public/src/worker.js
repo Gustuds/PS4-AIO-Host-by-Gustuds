@@ -1,4 +1,18 @@
-importScripts("misc.js");
+try {
+
+    console.log("worker: started");
+
+    importScripts("misc.js");
+
+    console.log("worker: misc loaded");
+
+} catch(e) {
+
+    console.log("worker: misc FAILED");
+    console.log(e);
+
+    throw e;
+}
 
 let marker_arr = new Uint32Array(new ArrayBuffer(0x10));
 
