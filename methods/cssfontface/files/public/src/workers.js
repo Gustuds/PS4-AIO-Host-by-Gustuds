@@ -57,9 +57,27 @@ class RPCWorker {
   }
 
   async init() {
+
     logger.debug(`initializing ${this.name}...`);
 
-    const marker_arr = await this.execute("init", this.name);
+    logger.debug("RPCWorker.init(): before execute()");
+
+    let marker_arr;
+
+    try {
+
+        marker_arr = await this.execute("init", this.name);
+
+        logger.debug("RPCWorker.init(): execute() OK");
+
+    } catch (e) {
+
+        logger.error("RPCWorker.init(): execute() FAILED");
+
+        logger.error(String(e));
+
+        throw e;
+    }
 
     const marker_buf_data = marker_arr.buffer.data();
     logger.debug(`marker_buf_data: ${marker_buf_data}`);
